@@ -1,4 +1,5 @@
 import mysql.connector
+import io
 from PIL import Image
 
 mydb = mysql.connector.connect(
@@ -22,6 +23,12 @@ mydb.commit()
 mycursor.execute("SELECT * FROM phonebook")
 
 myresult = mycursor.fetchall()
-
 for x in myresult:
     print(x)
+
+file_like2 = io.BytesIO(myresult[16][4])
+img1=Image.open(file_like2)
+img1.show()
+mycursor.close()
+mydb.close()
+
